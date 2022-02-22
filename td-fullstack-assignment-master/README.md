@@ -94,16 +94,16 @@ undefined
 
 
 
-##### Bonus
+#### Bonus
 
-###### Complexity
+##### Complexity
 
 Provide the time and memory complexity of your function.
 
-###### Make it memory efficient
+##### Make it memory efficient
 
 Suppose we have memory limitations, e.g. mobile, but no time limitations. Provide a memory-efficient version of the function.
 
-###### Make it time efficient
+##### Make it time efficient
 
 Suppose we have unlimited memory, but we want it to be *fast*. Provide a time-efficient version of the function.
