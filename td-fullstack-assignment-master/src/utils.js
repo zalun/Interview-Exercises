@@ -38,8 +38,22 @@ export const detectSums = (array) => {
  * @returns {Object} An object with the input, result, and error.
  */
 export function calculateResult(input) {
-  const parsedInput = input.split(",").map((i) => parseInt(i.trim(), 10));
   let error = null;
+  const arr = input.split(",");
+  if (arr.length <= 1) {
+    return { input: [], result: [], error: "Input is not an array" };
+  }
+  if (arr.length < 3) {
+    return { input: [], result: [], error: "Minimum of three elements" };
+  }
+  const parsedInput = arr.map((i) => parseInt(i.trim(), 10));
+  if (isNaN(parsedInput[0])) {
+    return {
+      input: [],
+      result: [],
+      error: "Provided elements are not numbers",
+    };
+  }
   let result = "";
   try {
     result = detectSums(parsedInput);
