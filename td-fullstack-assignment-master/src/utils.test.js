@@ -188,6 +188,13 @@ describe("calculateResult", () => {
     expect(output.error).to.equal("Provided elements are not numbers");
   });
 
+  it("should handle invalid input gracefully", () => {
+    const output = calculateResult("1,2,c");
+    expect(output.input).to.deep.equal([]);
+    expect(output.result).to.deep.equal([]);
+    expect(output.error).to.equal("Provided elements are not numbers");
+  });
+
   it("should handle less than three elements", () => {
     const output = calculateResult("1,2");
     expect(output.input).to.deep.equal([]);

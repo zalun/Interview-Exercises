@@ -47,7 +47,7 @@ export function calculateResult(input) {
     return { input: [], result: [], error: "Minimum of three elements" };
   }
   const parsedInput = arr.map((i) => parseInt(i.trim(), 10));
-  if (isNaN(parsedInput[0])) {
+  if (parsedInput.some((i) => isNaN(i))) {
     return {
       input: [],
       result: [],
