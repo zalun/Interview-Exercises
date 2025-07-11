@@ -54,7 +54,7 @@ export function calculateResult(input) {
       error: "Provided elements are not numbers",
     };
   }
-  let result = "";
+  let result = [];
   try {
     result = detectSums(parsedInput);
   } catch (e) {

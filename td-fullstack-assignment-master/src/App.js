@@ -1,15 +1,15 @@
-import React, { Component } from 'react';
-import { calculateResult } from './utils';
-import './App.css';
+import React, { Component } from "react";
+import { calculateResult } from "./utils";
+import "./App.css";
 
 class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      value: '',
-      userInput: '',
-      result: '',
-      error: 'Write something',
+      value: "",
+      userInput: [],
+      result: [],
+      error: "Write something",
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -22,27 +22,29 @@ class App extends Component {
 
   handleSubmit(event) {
     const { value } = this.state;
+    if (value.trim() === "") {
+      event.preventDefault();
+      return;
+    }
     const { input, result, error } = calculateResult(value);
     this.setState({ userInput: input, result, error });
     event.preventDefault();
   }
 
   render() {
-    const { userInput, result, error } = this.state;
+    const { userInput, result, error, value } = this.state;
     return (
       <div className="App">
         <form className="App-form" onSubmit={this.handleSubmit}>
-          <input type="text" value={this.state.value} onChange={this.handleChange} />
-          { !error &&
+          <input type="text" value={value} onChange={this.handleChange} />
+          {!error && (
             <p>
-              <span>Result for input '{userInput}' is '{result}'</span>
+              <span>
+                Result for input '{userInput}' is '{JSON.stringify(result)}'
+              </span>
             </p>
-          }
-          { error &&
-            <p className="App-error">
-              {error}
-            </p>
-          }
+          )}
+          {error && <p className="App-error">{error}</p>}
         </form>
       </div>
     );
