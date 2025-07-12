@@ -127,13 +127,15 @@ describe("detectSums edge cases", () => {
   });
 
   it("should handle NaN in array", () => {
-    const result = detectSums([1, NaN, 2]);
-    expect(result).to.deep.equal([]);
+    expect(() => detectSums([1, NaN, 2])).to.throw(
+      "Provided elements are not numbers"
+    );
   });
 
   it("should handle undefined in array", () => {
-    const result = detectSums([1, undefined, 2]);
-    expect(result).to.deep.equal([]);
+    expect(() => detectSums([1, undefined, 2])).to.throw(
+      "Provided elements are not numbers"
+    );
   });
 
   // Commented out because it takes too long to run (35s on brute force solution)
@@ -183,14 +185,14 @@ describe("calculateResult", () => {
 
   it("should handle invalid input gracefully", () => {
     const output = calculateResult("a,b,c");
-    expect(output.input).to.deep.equal([]);
+    expect(output.input).to.deep.equal([NaN, NaN, NaN]);
     expect(output.result).to.deep.equal([]);
     expect(output.error).to.equal("Provided elements are not numbers");
   });
 
   it("should handle invalid input gracefully", () => {
     const output = calculateResult("1,2,c");
-    expect(output.input).to.deep.equal([]);
+    expect(output.input).to.deep.equal([1, 2, NaN]);
     expect(output.result).to.deep.equal([]);
     expect(output.error).to.equal("Provided elements are not numbers");
   });
@@ -206,13 +208,27 @@ describe("calculateResult", () => {
     const output = calculateResult("");
     expect(output.input).to.deep.equal([]);
     expect(output.result).to.deep.equal([]);
-    expect(output.error).to.equal("Input is not an array");
+    expect(output.error).to.equal("Minimum of three elements");
+  });
+
+  it("should handle single element", () => {
+    const output = calculateResult("1");
+    expect(output.input).to.deep.equal([]);
+    expect(output.result).to.deep.equal([]);
+    expect(output.error).to.equal("Minimum of three elements");
+  });
+
+  it("should handle two elements", () => {
+    const output = calculateResult("1,2");
+    expect(output.input).to.deep.equal([]);
+    expect(output.result).to.deep.equal([]);
+    expect(output.error).to.equal("Minimum of three elements");
   });
 
   it("should handle not an array", () => {
     const output = calculateResult("not array");
     expect(output.input).to.deep.equal([]);
     expect(output.result).to.deep.equal([]);
-    expect(output.error).to.equal("Input is not an array");
+    expect(output.error).to.equal("Minimum of three elements");
   });
 });

@@ -2,10 +2,14 @@
  * Detects sums in an array of numbers.
  * @param {number[]} array - The array of numbers to detect sums in.
  * @returns {Object[]} An array of objects with the indices of the numbers that sum to the target number.
+ * @throws {Error} If the input is not an array or if the elements are not numbers.
  */
 export const detectSums = (array) => {
   if (!Array.isArray(array)) {
     throw new Error("Input is not an array");
+  }
+  if (array.some((i) => isNaN(i))) {
+    throw new Error("Provided elements are not numbers");
   }
 
   const results = [];
@@ -39,21 +43,19 @@ export const detectSums = (array) => {
  */
 export function calculateResult(input) {
   let error = null;
-  const arr = input.split(",");
-  if (arr.length <= 1) {
-    return { input: [], result: [], error: "Input is not an array" };
-  }
-  if (arr.length < 3) {
-    return { input: [], result: [], error: "Minimum of three elements" };
-  }
-  const parsedInput = arr.map((i) => parseInt(i.trim(), 10));
-  if (parsedInput.some((i) => isNaN(i))) {
+  const array = input.split(",");
+
+  // Note:Not moving this check to detectSums because it should return an empty array in this case
+  if (array.length < 3) {
     return {
       input: [],
       result: [],
-      error: "Provided elements are not numbers",
+      error: "Minimum of three elements",
     };
   }
+
+  const parsedInput = array.map((i) => parseInt(i.trim(), 10));
+
   let result = [];
   try {
     result = detectSums(parsedInput);
