@@ -121,6 +121,18 @@ describe("detectSums edge cases", () => {
     expect(result).to.deep.equal([{ pA: 0, pB: 1, sum: 2 }]);
   });
 
+  it("should work regardles of the order", () => {
+    const result = detectSums([3, 2, 1, 1, 2]);
+    expect(result).to.deep.equal([
+      { pA: 1, pB: 2, sum: 0 },
+      { pA: 1, pB: 3, sum: 0 },
+      { pA: 2, pB: 3, sum: 1 },
+      { pA: 2, pB: 3, sum: 4 },
+      { pA: 2, pB: 4, sum: 0 },
+      { pA: 3, pB: 4, sum: 0 },
+    ]);
+  });
+
   it("should handle non-integer numbers", () => {
     const result = detectSums([1.5, 2.5, 4.0]);
     expect(result).to.deep.equal([{ pA: 0, pB: 1, sum: 2 }]);
@@ -138,11 +150,12 @@ describe("detectSums edge cases", () => {
     );
   });
 
-  // Commented out because it takes too long to run (35s on brute force solution)
-  // it("should handle very large array with no valid sums", () => {
-  //   const arr = Array.from({ length: 1000 }, (_, i) => i + 1);
-  //   expect(detectSums(arr)).to.be.an("array");
-  // });
+  // 35s on brute force solution
+  // 1s on optimized solution
+  it("should handle very large array with no valid sums", () => {
+    const arr = Array.from({ length: 1000 }, (_, i) => i + 1);
+    expect(detectSums(arr)).to.be.an("array");
+  });
 
   it("should throw error for non-array input: null", () => {
     expect(() => detectSums(null)).to.throw("Input is not an array");
